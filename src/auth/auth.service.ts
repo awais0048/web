@@ -1,10 +1,12 @@
-import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Inject, UnauthorizedException ,Logger } from '@nestjs/common';
 import { Db } from 'mongodb';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
+
 @Injectable()
 export class AuthService {
+
     constructor(
         @Inject('MONGO_CONNECTION') private db: Db,
         private jwtService: JwtService,

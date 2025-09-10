@@ -7,21 +7,19 @@ import { AuthService } from './auth/auth.service';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { ScheduleModule } from '@nestjs/schedule';
 
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-
+  imports: [ConfigModule.forRoot({isGlobal: true}),
+    AuthModule,
+    DatabaseModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1h' },
     }),
-    AuthModule,
-    DatabaseModule,
+    ScheduleModule.forRoot(), 
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
